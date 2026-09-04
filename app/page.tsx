@@ -1,237 +1,265 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { Michroma, Chakra_Petch } from 'next/font/google'
-import { Github, Linkedin, Mail, Instagram } from 'lucide-react'
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
 
-import ProjectCard from '@/components/ui/projectcard'
-import About from '@/components/ui/about'
+import ClickSpark from '@/components/ClickSpark';
+import CursorGlow from '@/components/CursorGlow';
+import Magnet from '@/components/Magnet';
 
-const michroma = Michroma({
-  weight: ['400'],
-  subsets: ['latin'],
-  display: 'swap', // Improve font loading performance
-})
-
-const chakra = Chakra_Petch({
-  weight: ['400'],
-  subsets: ['latin'],
-  display: 'swap', // Improve font loading performance
-})
-
-
-const projects = [
-  {
-    id: 1,
-    title: "Machine Learning Barbell Exercise Tracker",
-    subtitle: "Python • Pandas • Conda • Matplotlib",
-    description: <>
-      A <b>machine learning model</b> for barbell exercise classification and repetition counting using
-      <b> accelerometer and gyroscope data</b>. <br /><br />
-
-      The dataset comprised <b>70,000 observations</b> from five participants performing five different exercises:
-      bench press, squat, row, deadlift, and overhead press, collected via a metaMotion wrist sensor. <br /><br />
-
-      Data preprocessing included multiple outlier detection methods (<b>IQR, Chauvenet`s criterion, and Local Outlier Factor</b>)
-      and feature engineering techniques such as <b>Butterworth`s Low Pass Filter, Principal Component Analysis</b>,
-      and various temporal and frequency abstractions. <br /><br />
-
-      Model selection involved forward feature selection with decision trees and Grid Search optimization across
-      multiple algorithms including <b>Neural Networks, Random Forest, Naive Bayes, and Decision Trees</b>.
-      The final model achieved over <b>99% accuracy and precision</b>.
-    </>,
-    link: "https://github.com/Khaedra/Fitness-Tracker-ML",
-    size: "medium", // Controls card size
-    image: "barbell",
-    row: "large",
-  },
-  {
-    id: 2,
-    title: "Wellspring (NW HackCamp 2024)",
-    subtitle: "React • News API • TailwindCSS • NextJS • Figma",
-    description: <>Awarded <b>Finalist + Most Accessible Design</b> at NW HackCamp 2024. <br></br><br></br>A health and wellness app built for students to track meals, water, sleep, exercise, and goals. Implemented with the <b>newsAPI</b> to retrieve up to date articles through search.</>,
-    link: "https://github.com/RuhaniMittal29/WellSpring",
-    size: "medium",
-    image: "wellspring",
-    award: true,
-  },
- 
-  {
-    id: 3,
-    title: "Nutrition Log",
-    subtitle: "Java • Java Swing • JComponents",
-    description: <>Course Project for CPSC 210.<br></br><br></br> A nutrition log application to track macros and goals across days, targeting gourmands, epicures, and Computer Science Students. Used JUnit for extensive test coverage, fulfilled key user stories, and implemented save functionality via parsing and writing to JSON files. </>,
-    link: "https://github.com/Khaedra/Nutrition-Log-App",
-    size: "medium",
-    image: "nutrition",
-  },
-  {
-    id: 4,
-    title: "Portfolio Website",
-    subtitle: "Next.js • TailwindCSS • Framer Motion",
-    description: "Personal portfolio featuring animated transitions and responsive design. Just what do you think this is?",
-    image: "website",
-    size: "small",
-  },
-  {
-    id: 6,
-    title: "KNews",
-    subtitle: "React • Django • MySQL • Redis • Render",
-    description: <>A full stack application, providing a concise summary of current news fetched from the Guardian and summarized by AI. Articles are stored in a mySQL database, filtered and cached to optimze space and time. The application is containerized with Docker and deployed on Render, eliminating manual server maintenance/upkeep. </>,
-    link: "https://knews-azure.vercel.app/",
-    size: "large",
-    row: "large",
-    image: "knews",
-
-  },
-  {
-    id: 5,
-    title: "Croak Quest (NW Hacks 2025)",
-    subtitle: "C# • Unity • LeapMotion",
-    description: <>Awarded <b>Best Beginner Project</b> at NWHacks 2025. <br></br><br></br> An educative 2D platformer on Unity powered by LeapMotion hand tracking technology. <b>Learn ASL</b> while improving hand-eye coordination and fine motor skills. An innovative take on player control in video games and education. </>,
-    link: "https://devpost.com/software/croak-quest",
-    size: "medium",
-    image: "frog",
-    award: true,
-  },
- 
+const navItems = [
+  { label: 'Experience', href: '#experience' },
+  { label: 'Selected work', href: '#work' },
+  { label: 'About', href: '#about' },
 ];
 
-export default function Component() {
-  const [activeSection, setActiveSection] = useState('home')
+const experiences = [
+  {
+    company: 'Boeing',
+    role: 'Software Development Intern',
+    date: 'Incoming Sep 2026',
+    summary: 'Joining Boeing in Vancouver as a software development intern.',
+    accent: 'violet',
+  },
+  {
+    company: 'Craver Solutions',
+    role: 'Software Developer Co-op',
+    date: 'Aug 2025 — Apr 2026',
+    summary: 'Shipped cross-platform commerce features for more than 100 white-label mobile apps.',
+    details: [
+      'Cut engineering setup time by two hours per app across configuration workflows.',
+      'Built a typed Google Places integration with 448+ tests and 95% coverage.',
+      'Reduced projected Places API spend by 40% through session-token architecture.',
+    ],
+    accent: 'orange',
+  },
+  {
+    company: 'Stealth startup',
+    role: 'Founding Software Developer',
+    date: 'Jan 2025 — May 2025',
+    summary: 'Built the data and cloud foundation for a venture-backed market-analysis product.',
+    details: [
+      'Engineered a Python and Polars backtesting engine for large historical datasets.',
+      'Placed third of 100+ ventures and helped secure $5K in funding.',
+      'Deployed a serverless AWS backend with automated delivery and load testing.',
+    ],
+    accent: 'blue',
+  },
+];
 
-  const navItems = [
-    { name: 'contact', href: '#contact' },
-    { name: 'projects', href: '#projects' },
-    { name: 'about', href: '#about' },
-  ]
+const featuredProjects = [
+  {
+    title: 'Reverberations',
+    year: '2026 —',
+    description: 'A language-aware change-impact engine that maps Git diffs to affected symbols, dependencies, and tests—giving coding agents a targeted verification plan instead of a hopeful guess.',
+    stack: 'Go / PostgreSQL / Tree-sitter / Docker / OpenTelemetry / MCP',
+    image: null,
+    link: null,
+    kind: 'system',
+  },
+  {
+    title: 'Croak Quest',
+    year: '2025',
+    description: 'A 2D platformer controlled through real-time ASL gestures. Winner of Best Beginner Project at nwHacks among 700+ participants.',
+    stack: 'Unity / C# / Leap Motion',
+    image: '/images/frog.png',
+    link: 'https://devpost.com/software/croak-quest',
+    kind: 'image',
+  },
+  {
+    title: 'Wellspring',
+    year: '2024',
+    description: 'An accessible student wellness platform for meals, water, sleep, exercise, goals, and useful health resources. HackCamp finalist and accessibility award winner.',
+    stack: 'React / Next.js / Tailwind CSS / Figma',
+    image: '/images/wellspring.png',
+    link: 'https://github.com/RuhaniMittal29/WellSpring',
+    kind: 'image',
+  },
+];
 
-  const socialLinks = [
-    { href: "https://github.com/Khaedra", icon: Github, hoverColor: 'hover:text-blue-400' },
-    { href: "https://www.linkedin.com/in/geoff-jiang/", icon: Linkedin, hoverColor: 'hover:text-purple-500' },
-    { href: "mailto:g.jiang06@gmail.com", icon: Mail, hoverColor: 'hover:text-pink-900' },
-    { href: "https://www.instagram.com/geoff_j12/", icon: Instagram, hoverColor: 'hover:text-blue-900' },
-  ]
+const archiveProjects = [
+  { name: 'KNews', type: 'AI news platform', stack: 'React / Django / MySQL / Redis', link: 'https://knews-azure.vercel.app/' },
+  { name: 'Exercise Tracker', type: 'Motion classification', stack: 'Python / Pandas / Scikit-learn', link: 'https://github.com/Khaedra/Fitness-Tracker-ML' },
+  { name: 'Nutrition Log', type: 'Desktop application', stack: 'Java / Swing / JUnit', link: 'https://github.com/Khaedra/Nutrition-Log-App' },
+  { name: 'Portfolio v1', type: 'The previous experiment', stack: 'Next.js / Framer Motion', link: 'https://github.com/Khaedra' },
+];
+
+const stack = ['TypeScript', 'Python', 'Go', 'Java', 'C / C++', 'React', 'Next.js', 'AWS', 'PostgreSQL', 'Docker', 'Supabase', 'Redis'];
+
+const reveal = {
+  hidden: { opacity: 0, y: 52 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+};
+
+function SectionHeading({ kicker, title }: { kicker: string; title: string }) {
+  return (
+    <div className="section-heading">
+      <span>{kicker}</span>
+      <h2>{title}</h2>
+    </div>
+  );
+}
+
+function ProjectVisual({ project }: { project: (typeof featuredProjects)[number] }) {
+  if (project.kind === 'system') {
+    return (
+      <div className="system-visual" aria-label="Abstract dependency graph visualization">
+        <span className="node node-a">diff</span>
+        <span className="node node-b">symbol</span>
+        <span className="node node-c">tests</span>
+        <span className="node node-d">verify</span>
+        <i className="connector connector-a" /><i className="connector connector-b" /><i className="connector connector-c" />
+      </div>
+    );
+  }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#001219] flex flex-col">
-      {/* Geometric Shapes */}
-      {/* Geometric Shapes */}
-<div className="absolute inset-0 overflow-hidden">
-  {/* Top left large shape */}
-  <div className="absolute w-[40vw] h-[60vh] -left-[10vw] -top-[20vh] 
-    rotate-45 transform bg-gradient-to-br from-[#620057] from-20% to-[#021B56]
-    sm:w-96 sm:-left-[100px] sm:-top-[400px] sm:h-[800px]" />
-  
-  {/* Small accent shapes */}
-  <div className="absolute w-8 h-[20vh] left-[5vw] top-[10vh] 
-    rotate-45 transform bg-gradient-to-tl from-[#042D85] to-[#41228F] opacity-50
-    sm:left-[70px] sm:top-[120px] sm:h-[220px]" />
-  
-  <div className="absolute w-8 h-[25vh] left-[20vw] -top-[5vh] 
-    rotate-45 transform bg-[#042D85] opacity-45
-    sm:left-[300px] sm:-top-[50px] sm:h-[280px]" />
-  
-  {/* Top right shapes */}
-  <div className="absolute w-[80vw] h-[40vh] -right-[20vw] -top-[10vh] 
-    -rotate-45 transform bg-gradient-to-br from-[#620057] via-[#330D57] to-[#021B56] opacity-50
-    sm:w-[600px] sm:-right-40 sm:-top-44 sm:h-[400px]" />
-  
-  <div className="absolute w-[60vw] h-[50vh] -right-[15vw] top-[15vh] 
-    rotate-45 transform bg-gradient-to-br from-[#620057] via-[#330D57] to-[#021B56] opacity-50
-    sm:w-96 sm:-right-40 sm:top-44 sm:h-[500px]" />
-  
-  {/* Bottom shapes */}
-  <div className="absolute w-[60vw] h-[50vh] -right-[15vw] -bottom-[15vh] 
-    rotate-45 transform bg-gradient-to-br from-[#620057] via-[#330D57] to-[#021B56] opacity-50
-    sm:w-96 sm:-right-40 sm:-bottom-52 sm:h-[500px]" />
-  
-  <div className="absolute w-[60vw] h-[50vh] -right-[15vw] -bottom-[5vh] 
-    rotate-45 transform bg-gradient-to-br from-[#620057] via-[#330D57] to-[#021B56] opacity-50
-    sm:w-96 sm:-right-40 sm:-bottom-20 sm:h-[500px]" />
-</div>
-
-      {/* Navigation */}
-      <nav className="relative z-10">
-        <div className="mx-auto w-[80%] px-4 py-8">
-          <ul className="flex justify-center md:justify-end space-x-12 text-sm md:text-lg tracking-widest">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className={`transition-colors hover:text-blue-400 ${activeSection === item.name ? 'text-blue-400' : 'text-blue-500'
-                    }`}
-                  onClick={() => setActiveSection(item.name)}
-                >
-                  {item.name}
-                </Link>
-              </li>
-
-            ))}
-            <li>
-              <Link href="/documents/Geoffrey_Jiang_Resume.pdf" download target="_blank" className='transition-colors text-blue-500 hover:text-blue-400'>resume</Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <main className="relative z-10 mx-auto w-[90%] md:w-[80%] px-4 pt-32 ">
-      <h1 className={`${michroma.className} text-center text-6xl sm:text-6xl md:text-8xl font-bold text-white tracking-wider`}>
-          GEOFF
-          <div className='border-y-2 relative w-full h-10 bg-transparent text-white text-base mt-8 mb-5 whitespace-nowrap overflow-hidden py-1'>
-            <p className='animate-scrolling-text text-lg inline-flex mx-1'>
-              / THIRD YEAR COMPUTER SCIENCE STUDENT / ASPIRING SOFTWARE DEVELOPER / UI/UX ENTHUSIAST / FULLSTACK CAPABILITIES
-            </p>
-            <p className='animate-scrolling-text text-lg inline-flex'>
-              / THIRD YEAR COMPUTER SCIENCE STUDENT / ASPIRING SOFTWARE DEVELOPER / UI/UX ENTHUSIAST / FULLSTACK CAPABILITIES
-            </p>
-          </div>
-          <span className='tracking-widest'>JIANG</span>
-        </h1>
-      </main>
-
-      {/* Social Links */}
-      <div className=' relative w-auto h-20 flex space-x-10 z-10 mt-[20%] md:mt-[10%] mb-9 justify-center '>
-        {socialLinks.map((link, index) => (
-          <a key={index} href={link.href} target='_blank' rel="noopener noreferrer" className={`text-white ${link.hoverColor} hover:scale-110 duration-200`}>
-            <link.icon size={30} className='md:size-11' />
-          </a>
-        ))}
-
-      </div>
-
-      {/* Projects */}
-      <div className='absolute h-[10%] w-[45%] rotate-[35deg] mt-[900px] -ml-52 bg-gradient-to-tl from-[#620057] via-[#330D57] to-[#021B56] opacity-50'></div>
-      <div className='absolute h-[5%] w-[25%] rotate-[35deg] mt-[1100px] -ml-52 bg-gradient-to-tl from-[#620057] via-[#330D57] to-[#021B56] opacity-50'></div>
-      <h1 id="projects" className={`${michroma.className} text-white text-4xl mt-56 mb-10 mx-10 z-10`}>Projects</h1>
-
-
-      <div className={`${chakra.className} relative grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-9 w-[80%] h-full p-10 mx-auto mb-24 justify-center align-middle`}>
-        {projects.map((project, index) => <ProjectCard project = {project} key = {index} />)}
-       
-
-      </div>
-
-
-      <h1 id="about" className={`text-center text-4xl text-white mt-28 ${michroma.className}`}>About Me</h1>
-
-      <div className='w-full flex justify-center align-middle'>
-        <About />
-      </div>
-
-      <div className=' relative w-auto h-20 flex space-x-10 z-10 mt-[10%] mb-3 justify-center '>
-        {socialLinks.map((link, index) => (
-          <a key={index} href={link.href} target='_blank' rel="noopener noreferrer" className={`text-white ${link.hoverColor} hover:scale-110 duration-200`}>
-            <link.icon size={30} className='md:size-11' />
-          </a>
-        ))}
-      </div>
-      <div className={` w-full h-10 text-center text-xl text-white ${chakra.className}`}>
-        <h1>Last Updated: May 26, 2025</h1>
-      </div>
-
+    <div className="project-image-wrap">
+      <Image src={project.image!} alt={`${project.title} project preview`} fill sizes="(max-width: 800px) 100vw, 56vw" className="project-image" />
     </div>
-  )
+  );
+}
+
+export default function Home() {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <ClickSpark sparkColor="#ff6b35" sparkCount={7} sparkRadius={24} duration={520}>
+      <CursorGlow />
+
+      <motion.div
+        className="intro-loader"
+        initial={reduceMotion ? false : { y: 0 }}
+        animate={{ y: '-105%' }}
+        transition={{ duration: 0.8, delay: 0.65, ease: [0.76, 0, 0.24, 1] }}
+        aria-hidden="true"
+      >
+        <span>GJ°</span><i />
+      </motion.div>
+
+      <main className="site-shell">
+        <nav className="site-nav" aria-label="Primary navigation">
+          <Link className="wordmark" href="#top" aria-label="Geoff Jiang, back to top">GJ<span>°</span></Link>
+          <div className="nav-links">
+            {navItems.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+          </div>
+          <span className="availability"><i /> Open to 2027 roles</span>
+        </nav>
+
+        <section className="hero" id="top">
+          <div className="hero-orbit" aria-hidden="true"><div className="orbit-line" /><span>VANCOUVER / 49.2827° N</span></div>
+          <motion.div className="hero-name" initial={reduceMotion ? false : { opacity: 0, y: 80 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.05, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}>
+            <h1><span>Geoff</span><span>Jiang</span></h1>
+          </motion.div>
+          <motion.div className="hero-intro" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.15, ease: [0.16, 1, 0.3, 1] }}>
+            <p>I build reliable software with an instinct for expressive interfaces and AI-assisted workflows.</p>
+            <span>UBC Computer Science · Software Developer</span>
+          </motion.div>
+          <motion.div className="hero-actions" initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 1.35 }}>
+            <Magnet padding={54} magnetStrength={3}><Link className="primary-action" href="#work">Explore my work</Link></Magnet>
+            <Link className="text-action" href="/documents/TechResume2.pdf" target="_blank">View résumé</Link>
+          </motion.div>
+          <div className="hero-index" aria-hidden="true"><span>PORTFOLIO / 2026</span><span>SCROLL TO ENTER</span></div>
+          <div className="hero-socials">
+            <a href="https://github.com/Khaedra" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={18} /></a>
+            <a href="https://www.linkedin.com/in/geoff-jiang/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={18} /></a>
+          </div>
+          <div className="signal" aria-hidden="true" />
+        </section>
+
+        <section className="education" aria-label="Education">
+          <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
+            <span className="education-mark">UBC</span>
+            <div className="education-copy">
+              <h2>Computer Science,<br />built beyond the classroom.</h2>
+              <p>B.Sc. Computer Science, Co-op<br />Dean’s Scholar · 4.0 / 4.33 GPA<br />Expected May 2028</p>
+            </div>
+          </motion.div>
+        </section>
+
+        <section className="experience section-pad" id="experience">
+          <SectionHeading kicker="Experience" title="Proof, not promises." />
+          <div className="experience-list">
+            {experiences.map((item, index) => (
+              <motion.article key={item.company} className="experience-row" variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+                <div className={`experience-dot ${item.accent}`}><span>{String(index + 1).padStart(2, '0')}</span></div>
+                <div className="experience-title"><h3>{item.company}</h3><p>{item.role}</p></div>
+                <div className="experience-body"><p>{item.summary}</p>{item.details ? <ul>{item.details.map((detail) => <li key={detail}>{detail}</li>)}</ul> : null}</div>
+                <time>{item.date}</time>
+              </motion.article>
+            ))}
+          </div>
+
+          <motion.div className="leadership" variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
+            <p className="leadership-role">Development Team Director<br /><span>nwPlus UBC · 2025 — present</span></p>
+            <p className="leadership-copy">Leading six developers across systems for three annual hackathons serving 1,000+ hackers.</p>
+            <div className="leadership-stats"><span><strong>176/176</strong> evaluations processed</span><span><strong>3,000+</strong> applicants reached yearly</span></div>
+          </motion.div>
+        </section>
+
+        <section className="work" id="work">
+          <div className="section-pad"><SectionHeading kicker="Selected work" title="Systems with a point of view." /></div>
+          <div className="featured-projects">
+            {featuredProjects.map((project) => {
+              const content = (
+                <article className="featured-project">
+                  <ProjectVisual project={project} />
+                  <div className="project-copy">
+                    <div><span>{project.year}</span>{project.link ? <ArrowUpRight aria-hidden="true" /> : null}</div>
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <small>{project.stack}</small>
+                  </div>
+                </article>
+              );
+              return project.link ? <a key={project.title} href={project.link} target="_blank" rel="noreferrer" className="project-link">{content}</a> : <div key={project.title}>{content}</div>;
+            })}
+          </div>
+
+          <div className="project-archive section-pad">
+            <h3>More experiments</h3>
+            <div>
+              {archiveProjects.map((project) => (
+                <a key={project.name} href={project.link} target="_blank" rel="noreferrer">
+                  <strong>{project.name}</strong><span>{project.type}</span><small>{project.stack}</small><ArrowUpRight aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="stack" aria-label="Technology stack">
+          <div className="marquee-track" aria-hidden="true">{[...stack, ...stack].map((item, index) => <span key={`${item}-${index}`}>{item}<i>✦</i></span>)}</div>
+          <p className="sr-only">Technologies: {stack.join(', ')}</p>
+        </section>
+
+        <section className="about section-pad" id="about">
+          <SectionHeading kicker="Off the clock" title="A person, occasionally." />
+          <div className="about-grid">
+            <motion.div className="portrait" variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+              <Image src="/images/me.png" alt="Geoff Jiang" fill sizes="(max-width: 800px) 100vw, 43vw" className="portrait-primary" priority={false} />
+              <Image src="/images/me3.png" alt="" fill sizes="(max-width: 800px) 100vw, 43vw" className="portrait-alt" aria-hidden="true" />
+              <span>Hover for the alternate take</span>
+            </motion.div>
+            <motion.div className="about-copy" variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
+              <p>I like making interfaces feel alive, but I care just as much about what happens behind them: clean systems, useful tests, and software people can trust.</p>
+              <div className="hobby-cloud"><span>lifting</span><span>manga</span><span>games</span><span>music</span><span>design rabbit holes</span></div>
+              <div className="media-reserve"><i>+</i><div><strong>Motion reel reserved</strong><span>Your future photos or video can live here without changing the layout.</span></div></div>
+            </motion.div>
+          </div>
+        </section>
+
+        <footer className="contact" id="contact">
+          <div className="contact-prompt"><span>Have a role, idea, or interesting problem?</span><h2>Let’s make<br />something work.</h2></div>
+          <div className="contact-actions">
+            <Magnet padding={70} magnetStrength={3}><a className="contact-orb" href="mailto:g.jiang06@gmail.com"><Mail />Say hello</a></Magnet>
+            <div><a href="https://github.com/Khaedra" target="_blank" rel="noreferrer">GitHub <ArrowUpRight /></a><a href="https://www.linkedin.com/in/geoff-jiang/" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight /></a><a href="/documents/TechResume2.pdf" target="_blank">Résumé <ArrowUpRight /></a></div>
+          </div>
+          <div className="footer-line"><span>Geoff Jiang © 2026</span><a href="#top">Back to top ↑</a></div>
+        </footer>
+      </main>
+    </ClickSpark>
+  );
 }
