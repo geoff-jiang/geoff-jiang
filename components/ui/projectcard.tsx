@@ -8,7 +8,7 @@ const ProjectCard = ({ project }) => {
     nutrition: `./images/nutrition.webp`,
     website: `./images/website.png`,
     frog: `./images/frog.png`,
-    knews: './images/knews.png'
+    knews: './images/knews.jpg'
   };
 
   const row = {
