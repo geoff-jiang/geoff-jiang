@@ -24,6 +24,7 @@
 /.wrangler/
 /outputs/
 /work/
+/.legacy-assets/
 
 # misc
 .DS_Store

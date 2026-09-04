@@ -131,7 +131,7 @@ const About = () => {
                             opacity: { duration: 0.4 }
                         }}
                         style={{
-                            backgroundImage: `url('./images/me.png')`,
+                            backgroundImage: `url('./images/me.jpg')`,
                             backgroundPosition: 'bottom',
                             backgroundSize: 'cover',
                             filter: 'brightness(1.15) contrast(1.2) saturate(1.1)',
@@ -151,7 +151,7 @@ const About = () => {
                             opacity: { duration: 0.4 }
                         }}
                         style={{
-                            backgroundImage: `url('./images/me3.png')`,
+                            backgroundImage: `url('./images/me3.jpg')`,
                             backgroundPosition: 'top',
                             backgroundSize: 'cover',
                             filter: 'brightness(1.15) contrast(1.2) saturate(1.1)',
@@ -205,7 +205,7 @@ const About = () => {
                             opacity: { duration: 0.4 }
                         }}
                         style={{
-                            backgroundImage: `url('./images/me.png')`,
+                            backgroundImage: `url('./images/me.jpg')`,
                             backgroundPosition: 'bottom',
                             backgroundSize: 'cover',
                             filter: 'brightness(1.15) contrast(1.2) saturate(1.1)',
@@ -225,7 +225,7 @@ const About = () => {
                             opacity: { duration: 0.4 }
                         }}
                         style={{
-                            backgroundImage: `url('./images/me3.png')`,
+                            backgroundImage: `url('./images/me3.jpg')`,
                             backgroundPosition: 'top',
                             backgroundSize: 'cover',
                             filter: 'brightness(1.15) contrast(1.2) saturate(1.1)',

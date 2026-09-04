@@ -239,8 +239,8 @@ export default function Home() {
           <SectionHeading kicker="Off the clock" title="A person, occasionally." />
           <div className="about-grid">
             <motion.div className="portrait" variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-              <Image src="/images/me.png" alt="Geoff Jiang" fill sizes="(max-width: 800px) 100vw, 43vw" className="portrait-primary" priority={false} />
-              <Image src="/images/me3.png" alt="" fill sizes="(max-width: 800px) 100vw, 43vw" className="portrait-alt" aria-hidden="true" />
+              <Image src="/images/me.jpg" alt="Geoff Jiang" fill sizes="(max-width: 800px) 100vw, 43vw" className="portrait-primary" priority={false} />
+              <Image src="/images/me3.jpg" alt="" fill sizes="(max-width: 800px) 100vw, 43vw" className="portrait-alt" aria-hidden="true" />
               <span>Hover for the alternate take</span>
             </motion.div>
             <motion.div className="about-copy" variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
