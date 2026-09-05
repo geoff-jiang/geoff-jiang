@@ -12,7 +12,6 @@ import Magnet from "@/components/Magnet";
 const navItems = [
   { label: "Experience", href: "#experience" },
   { label: "Selected work", href: "#work" },
-  { label: "Photos", href: "#off-duty" },
 ];
 
 const experiences = [
@@ -114,33 +113,6 @@ const stack = [
   "Docker",
   "Supabase",
   "Redis",
-];
-
-const offDutyPhotos = [
-  {
-    src: "/images/off-duty/neon-stairwell.jpg",
-    alt: "Geoff in a neon-lit music venue stairwell",
-  },
-  {
-    src: "/images/off-duty/city-day.jpg",
-    alt: "Geoff standing on a bright city street",
-  },
-  {
-    src: "/images/off-duty/street-crossing.jpg",
-    alt: "Geoff at a busy city crossing",
-  },
-  {
-    src: "/images/off-duty/platform-motion.jpg",
-    alt: "Geoff on a train platform captured with motion blur",
-  },
-  {
-    src: "/images/off-duty/city-night.jpg",
-    alt: "Geoff overlooking a city street at night",
-  },
-  {
-    src: "/images/off-duty/graphic-portrait.jpg",
-    alt: "Geoff in a dark graphic portrait",
-  },
 ];
 
 const reveal = {
@@ -320,7 +292,7 @@ export default function Home() {
               <p>
                 B.Sc. Computer Science, Co-op
                 <br />
-                Dean’s Scholar · 4.0 / 4.33 GPA
+                Dean’s Scholar · 4.0 / 4.0 GPA
                 <br />
                 Expected May 2028
               </p>
@@ -456,7 +428,7 @@ export default function Home() {
           <p className="sr-only">Technologies: {stack.join(", ")}</p>
         </section>
 
-        <section className="off-duty section-pad" id="off-duty">
+        {/* <section className="off-duty section-pad" id="off-duty">
           <header className="section-title off-duty-title">
             <h2>Off the clock</h2>
             <div className="hobby-cloud" aria-label="Interests">
@@ -487,7 +459,7 @@ export default function Home() {
               </motion.figure>
             ))}
           </div>
-        </section>
+        </section> */}
 
         <footer className="contact" id="contact">
           <div className="contact-prompt">
