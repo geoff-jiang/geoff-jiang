@@ -242,13 +242,14 @@ export default function Home() {
                 Explore my work
               </Link>
             </Magnet>
-            <Link
+            <a
               className="text-action"
               href="/documents/Geoffrey_Jiang_Resume-3.pdf"
               target="_blank"
+              rel="noopener noreferrer"
             >
               View résumé
-            </Link>
+            </a>
           </motion.div>
           <div className="hero-index" aria-hidden="true">
             <span>PORTFOLIO / 2026</span>
