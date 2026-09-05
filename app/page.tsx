@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { ArrowUpRight, Mail } from "lucide-react";
 
 import ClickSpark from "@/components/ClickSpark";
 import CursorGlow from "@/components/CursorGlow";
@@ -115,7 +115,7 @@ const stack = [
   "Redis",
 ];
 
-const reveal = {
+const reveal: Variants = {
   hidden: { opacity: 0, y: 52 },
   visible: {
     opacity: 1,
@@ -261,7 +261,7 @@ export default function Home() {
               rel="noreferrer"
               aria-label="GitHub"
             >
-              <Github size={18} />
+              <span aria-hidden="true">GH</span>
             </a>
             <a
               href="https://www.linkedin.com/in/geoff-jiang/"
@@ -269,7 +269,7 @@ export default function Home() {
               rel="noreferrer"
               aria-label="LinkedIn"
             >
-              <Linkedin size={18} />
+              <span aria-hidden="true">in</span>
             </a>
           </div>
           <div className="signal" aria-hidden="true" />
@@ -427,39 +427,6 @@ export default function Home() {
           </div>
           <p className="sr-only">Technologies: {stack.join(", ")}</p>
         </section>
-
-        {/* <section className="off-duty section-pad" id="off-duty">
-          <header className="section-title off-duty-title">
-            <h2>Off the clock</h2>
-            <div className="hobby-cloud" aria-label="Interests">
-              <span>lifting</span>
-              <span>manga</span>
-              <span>games</span>
-              <span>music</span>
-              <span>design</span>
-            </div>
-          </header>
-          <div className="photo-grid">
-            {offDutyPhotos.map((photo, index) => (
-              <motion.figure
-                key={photo.src}
-                className={`photo-frame photo-${index + 1}`}
-                variants={reveal}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.15 }}
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(max-width: 700px) 88vw, (max-width: 1100px) 45vw, 32vw"
-                  className="off-duty-photo"
-                />
-              </motion.figure>
-            ))}
-          </div>
-        </section> */}
 
         <footer className="contact" id="contact">
           <div className="contact-prompt">
